@@ -1,0 +1,12 @@
+{
+  "key.forgeshot.screenshot": "Screenshot - Forgeshot",
+  "gui.forgeshot.settings.title": "Forgeshot",
+  "gui.forgeshot.settings.entry.width": "Width: %s",
+  "gui.forgeshot.settings.entry.height": "Height: %s",
+  "gui.forgeshot.settings.entry.hide_hud.on": "Hide Hud: Yes",
+  "gui.forgeshot.settings.entry.hide_hud.off": "Hide Hud: No",
+  "gui.forgeshot.settings.entry.scale_hud.on": "Scale Hud: Yes",
+  "gui.forgeshot.settings.entry.scale_hud.off": "Scale Hud: No",
+  "gui.forgeshot.settings.entry.delay": "Delay: %s",
+  "gui.forgeshot.settings.entry.save_format": "Save Format: %s"
+}

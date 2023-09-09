@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.lucasmellof.forgeshot.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "ForgeShot.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+    "AccessorWindow",
+    "MixinMinecraft"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
