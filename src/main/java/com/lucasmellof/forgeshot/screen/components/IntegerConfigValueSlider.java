@@ -11,9 +11,9 @@ import java.util.function.Function;
  */
 public class IntegerConfigValueSlider extends AbstractSliderButton {
 
-	private final ForgeConfigSpec.IntValue entry;
-	private final int min;
-	private final int max;
+	protected final ForgeConfigSpec.IntValue entry;
+	protected final int min;
+	protected final int max;
 	private final Function<Integer, Component> text;
 
 	public IntegerConfigValueSlider(int x, int y, int width, int height, ForgeConfigSpec.IntValue entry, int min, int max, Function<Integer, Component> text) {
@@ -26,25 +26,31 @@ public class IntegerConfigValueSlider extends AbstractSliderButton {
 	}
 
 	@Override
-	protected void updateMessage() {
+	public void updateMessage() {
 		setMessage(getMsg());
 	}
 
 	public Component getMsg() {
-		return text.apply(getValue(min, max, value));
+		int value1 = getValue(min, max, value);
+		return text.apply(value1);
 	}
 
 	@Override
 	protected void applyValue() {
-		entry.set(getValue(min, max, value));
+		int value1 = getValue(min, max, value);
+		entry.set(value1);
 		entry.save();
 	}
 
-	private static double getPercentage(int min, int max, int value) {
+	public static double getPercentage(int min, int max, int value) {
 		return ((double) value - (double) min) / ((double) max - (double) min);
 	}
 
-	private static int getValue(int min, int max, double value) {
+	public static int getValue(int min, int max, double value) {
 		return (int) ((double) min + value * ((double) max - (double) min));
+	}
+
+	public int getValue() {
+		return getValue(min, max, this.value);
 	}
 }

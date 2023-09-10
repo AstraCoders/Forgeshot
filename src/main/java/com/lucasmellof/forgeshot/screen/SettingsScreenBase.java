@@ -13,8 +13,6 @@ public class SettingsScreenBase extends ScreenBase {
 
 	protected ResourceLocation texture;
 
-	private float opacity;
-
 	public SettingsScreenBase(Component title, ResourceLocation texture, int xSize, int ySize) {
 		super(title, xSize, ySize);
 		this.texture = texture;
@@ -29,7 +27,7 @@ public class SettingsScreenBase extends ScreenBase {
 	@Override
 	public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderColor(1F, 1F, 1F, opacity);
+		RenderSystem.setShaderColor(1F, 1F, 1F, 1);
 		RenderSystem.setShaderTexture(0, texture);
 		blit(matrixStack, guiLeft, guiTop, 0, 0, xSize, ySize);
 
