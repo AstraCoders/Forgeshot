@@ -2,6 +2,7 @@ package com.lucasmellof.forgeshot.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -25,17 +26,13 @@ public class SettingsScreenBase extends ScreenBase {
 
 
 	@Override
-	public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderColor(1F, 1F, 1F, 1);
-		RenderSystem.setShaderTexture(0, texture);
-		blit(matrixStack, guiLeft, guiTop, 0, 0, xSize, ySize);
+	public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+		graphics.blit(texture, guiLeft, guiTop, 0, 0, xSize, ySize);
 
-		super.render(matrixStack, mouseX, mouseY, partialTicks);
+		super.render(graphics, mouseX, mouseY, partialTicks);
 
 		int titleWidth = font.width(getTitle());
-		font.draw(matrixStack, getTitle().getVisualOrderText(), guiLeft + (xSize - titleWidth) / 2, guiTop + 7, FONT_COLOR);
-
+		graphics.drawString(font, getTitle().getVisualOrderText(), guiLeft + (xSize - titleWidth) / 2, guiTop + 7, FONT_COLOR);
 	}
 
 	@Override

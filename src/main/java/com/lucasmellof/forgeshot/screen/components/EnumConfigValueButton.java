@@ -44,7 +44,7 @@ public class EnumConfigValueButton<T extends Enum<T>> extends AbstractButton {
 	}
 
 	@Override
-	public void updateNarration(@NotNull NarrationElementOutput narrationElementOutput) {
+	protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
 		defaultButtonNarrationText(narrationElementOutput);
 	}
 }

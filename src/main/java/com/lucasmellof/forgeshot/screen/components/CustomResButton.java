@@ -39,7 +39,7 @@ public class CustomResButton extends AbstractButton {
 	}
 
 	@Override
-	public void updateNarration(@NotNull NarrationElementOutput narrationElementOutput) {
+	protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
 		defaultButtonNarrationText(narrationElementOutput);
 	}
 }
