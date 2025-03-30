@@ -3,8 +3,44 @@ plugins {
     id 'maven-publish'
 }
 
+def getSecrets() {
+    Properties props = new Properties()
+    if (file('../secrets.properties').exists()) {
+        props.load(new FileInputStream(file('../secrets.properties')))
+    }
+    return props
+}
+def getCurseforgeKey() {
+    if(secrets.curseforge_key) {
+        return secrets.curseforge_key
+    } else if(System.getenv().CURSEFORGE_KEY_SECRET) {
+        return System.getenv().CURSEFORGE_KEY_SECRET
+    } else {
+        return "DUMMY"
+    }
+}
+def getModrinthKey() {
+    if(secrets.modrinth_key) {
+        return secrets.modrinth_key
+    } else if(System.getenv().MODRINTH_KEY_SECRET) {
+        return System.getenv().MODRINTH_KEY_SECRET
+    } else {
+        return "DUMMY"
+    }
+}
+def getChangelog() {
+    return "CHANGELOG.md"
+}
+ext {
+    secrets = getSecrets()
+    secrets.curseforgeKey = getCurseforgeKey()
+    secrets.modrinthKey = getModrinthKey()
+    secrets.changelog = getChangelog()
+    println "Secrets: $secrets"
+}
+
 base {
-    archivesName = "${mod_id}-${project.name}-${minecraft_version}"
+    archivesName = "${mod_id}-mc${minecraft_version}+${version}"
 }
 
 java {
@@ -82,8 +118,6 @@ processResources {
                        'group'                        : project.group, //Else we target the task's group.
                        'minecraft_version'            : minecraft_version,
                        'minecraft_version_range'      : minecraft_version_range,
-                       'fabric_version'               : fabric_version,
-                       'fabric_loader_version'        : fabric_loader_version,
                        'mod_name'                     : mod_name,
                        'mod_author'                   : mod_author,
                        'mod_id'                       : mod_id,

@@ -1,6 +1,12 @@
 plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev'
+    id 'net.darkhax.curseforgegradle'
+    id 'com.modrinth.minotaur'
+}
+
+base {
+    archivesName = "${mod_name}-neoforge-${minecraft_version}"
 }
 
 neoForge {
@@ -37,3 +43,30 @@ neoForge {
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+    dependsOn(tasks.jar)
+    apiToken = secrets.curseforgeKey
+    def mainFile = upload(curseforge_project_id, jar)
+    mainFile.releaseType = "release"
+    mainFile.changelogType = "text"
+    mainFile.changelog = rootProject.ext.mod_changelog
+//    mainFile.addJavaVersion("Java ${project.java_version}")
+    mainFile.addGameVersion(minecraft_version)
+    mainFile.addModLoader("NeoForge")
+
+    mainFile.addRequirement("cyclops-core")
+}
+
+modrinth {
+    token = secrets.modrinthKey
+    projectId = "${modrinth_project_id}"
+    versionNumber = project.minecraft_version + '-' + project.version
+    versionName = "${project.version} for NeoForge ${project.minecraft_version}"
+    versionType = "release"
+    uploadFile = jar
+    gameVersions = [ project.minecraft_version ]
+    changelog = provider { rootProject.ext.mod_changelog }
+    loaders = ["neoforge"]
+
+}

@@ -1,5 +1,7 @@
 plugins {
     id 'multiloader-common'
+    id 'net.darkhax.curseforgegradle'
+    id 'com.modrinth.minotaur'
 }
 
 configurations {
