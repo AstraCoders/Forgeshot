@@ -1,3 +1,3 @@
 ## Changelog
 
-- chore(core): attempt to make project easier to deploy
+- update deps and minecraft 1.21.4
