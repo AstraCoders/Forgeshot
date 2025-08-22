@@ -1,3 +1,3 @@
 ## Changelog
 
-- update neo(forge) versions
+- chore(core): attempt to make project easier to deploy

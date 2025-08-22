@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -24,11 +25,16 @@ public class SettingsScreenBase extends ScreenBase {
 		super.init();
 	}
 
+	@Override
+	public void renderBackground(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+		super.renderBackground(graphics, mouseX, mouseY, partialTick);
+
+		graphics.blit(RenderType::guiTextured, texture, guiLeft, guiTop, 0, 0, xSize, ySize, 256, 256);
+
+	}
 
 	@Override
 	public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-		graphics.blit(texture, guiLeft, guiTop, 0, 0, xSize, ySize);
-
 		super.render(graphics, mouseX, mouseY, partialTicks);
 
 		int titleWidth = font.width(getTitle());

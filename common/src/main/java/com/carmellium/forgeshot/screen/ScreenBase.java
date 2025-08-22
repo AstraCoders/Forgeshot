@@ -13,7 +13,7 @@ import java.util.function.Supplier;
  */
 public class ScreenBase extends Screen {
 
-	protected static final int FONT_COLOR = 4210752;
+	protected static final int FONT_COLOR = 0xffffff;
 
 	protected int guiLeft;
 	protected int guiTop;
