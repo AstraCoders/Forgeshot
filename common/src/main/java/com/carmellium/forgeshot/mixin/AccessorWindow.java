@@ -23,7 +23,4 @@ public interface AccessorWindow {
 
 	@Accessor
 	void setFramebufferHeight(int framebufferHeight);
-
-	@Invoker("onResize")
-	void forgeShot$onResize(long window, int width, int height);
 }

@@ -1,13 +1,9 @@
 package com.carmellium.forgeshot;
 
-
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.eventbus.api.bus.BusGroup;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 /*
@@ -22,9 +18,9 @@ public class ForgeShotEvents {
 		ForgeShotClient.INSTANCE.onTick();
 	}
 
-	public static void init() {
-		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-		bus.addListener(ForgeShotEvents::onRegisterKeyBinding);
-		MinecraftForge.EVENT_BUS.addListener(ForgeShotEvents::onTick);
+	public static void init(FMLJavaModLoadingContext ctx) {
+		var modBus = ctx.getModBusGroup();
+		RegisterKeyMappingsEvent.getBus(modBus).addListener(ForgeShotEvents::onRegisterKeyBinding);
+		TickEvent.ClientTickEvent.Pre.BUS.addListener(ForgeShotEvents::onTick);
 	}
 }

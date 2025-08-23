@@ -23,8 +23,8 @@ public class MixinMinecraft {
 		ForgeShotClient.INSTANCE.onRender();
 	}
 
-	@ModifyArg(method = "resizeDisplay", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;setGuiScale(D)V"))
-	public double onResizeDisplay(double guiScale) {
-		return ForgeShotClient.INSTANCE.getScale() * guiScale;
+	@ModifyArg(method = "resizeDisplay", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;setGuiScale(I)V"))
+	public int onResizeDisplay(int guiScale) {
+		return (int) (ForgeShotClient.INSTANCE.getScale() * guiScale);
 	}
 }
