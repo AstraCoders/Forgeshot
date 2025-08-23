@@ -2,7 +2,9 @@ package com.carmellium.forgeshot.mixin;
 
 import com.mojang.blaze3d.platform.Window;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.gen.Accessor;
+import org.spongepowered.asm.mixin.gen.Invoker;
 
 /*
  * @author Lucasmellof, Lucas de Mello Freitas created on 09/09/2023
@@ -21,4 +23,7 @@ public interface AccessorWindow {
 
 	@Accessor
 	void setFramebufferHeight(int framebufferHeight);
+
+	@Invoker("onResize")
+	void forgeShot$onResize(long window, int width, int height);
 }

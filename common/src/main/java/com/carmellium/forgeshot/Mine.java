@@ -3,11 +3,8 @@ package com.carmellium.forgeshot;
 import com.carmellium.forgeshot.mixin.AccessorWindow;
 import com.carmellium.forgeshot.platform.Services;
 import net.minecraft.client.Minecraft;
-import org.lwjgl.glfw.GLFW;
-import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.DateFormat;
@@ -29,29 +26,6 @@ public class Mine {
 		return CLIENT.getWindow().getHeight();
 	}
 
-	public static void writeToBuffer(ByteBuffer buffer, int bytesPerPixel) {
-		GL11.glReadPixels(0, 0, getWidth(), getHeight(), GL11.GL_RGB, GL11.GL_UNSIGNED_BYTE, buffer);
-
-		var line = new byte[getWidth() * bytesPerPixel];
-		var line1 = new byte[getWidth() * bytesPerPixel];
-
-		// flip
-		for (int i = 0; i < getHeight() / 2; i++) {
-			int widthOffset = i * getWidth() * bytesPerPixel;
-			int heightOffset = (getHeight() - i - 1) * getWidth() * bytesPerPixel;
-
-			buffer.position(widthOffset);
-			buffer.get(line);
-			buffer.position(heightOffset);
-			buffer.get(line1);
-
-			buffer.position(heightOffset);
-			buffer.put(line);
-			buffer.position(widthOffset);
-			buffer.put(line1);
-		}
-	}
-
 	public static void hideHud(boolean hideHud) {
 		CLIENT.options.hideGui = hideHud;
 	}
@@ -63,6 +37,7 @@ public class Mine {
 		accessor.setHeight(height);
 		accessor.setFramebufferWidth(width);
 		accessor.setFramebufferHeight(height);
+		CLIENT.getMainRenderTarget().resize(width, height);
 
 		CLIENT.resizeDisplay();
 	}
