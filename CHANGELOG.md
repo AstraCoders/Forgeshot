@@ -1,3 +1,3 @@
 ## Changelog
 
-- support 1.21.6
+- support 1.21.7

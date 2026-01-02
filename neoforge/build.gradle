@@ -46,6 +46,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
     dependsOn(tasks.jar)
+    group = "publishing"
     apiToken = secrets.curseforgeKey
     def mainFile = upload(curseforge_project_id, jar)
     mainFile.releaseType = "release"
