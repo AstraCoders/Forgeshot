@@ -3,6 +3,7 @@ package com.carmellium.forgeshot.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
@@ -43,8 +44,8 @@ public class SettingsScreenBase extends ScreenBase {
 	}
 
 	@Override
-	public boolean mouseClicked(double d, double e, int i) {
-		return super.mouseClicked(d, e, i);
+	public boolean mouseClicked(MouseButtonEvent event, boolean isDoubleClick) {
+		return super.mouseClicked(event, isDoubleClick);
 	}
 
 	@Override

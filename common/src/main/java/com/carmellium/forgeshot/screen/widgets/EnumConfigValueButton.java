@@ -3,6 +3,7 @@ package com.carmellium.forgeshot.screen.widgets;
 import com.carmellium.forgeshot.config.ConfigEntry;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.input.InputWithModifiers;
 import net.minecraft.network.chat.Component;
 
 import java.util.function.Consumer;
@@ -29,7 +30,7 @@ public class EnumConfigValueButton<T extends Enum<T>> extends AbstractButton {
 	}
 
 	@Override
-	public void onPress() {
+	public void onPress(InputWithModifiers input) {
 		int index = entry.get().ordinal();
 		int max = clazz.getEnumConstants().length - 1;
 		if (index == max) {

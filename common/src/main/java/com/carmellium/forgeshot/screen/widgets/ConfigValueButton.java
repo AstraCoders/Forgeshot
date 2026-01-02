@@ -3,6 +3,7 @@ package com.carmellium.forgeshot.screen.widgets;
 import com.carmellium.forgeshot.config.ConfigEntry;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.input.InputWithModifiers;
 import net.minecraft.network.chat.Component;
 
 import java.util.function.Function;
@@ -27,7 +28,7 @@ public class ConfigValueButton extends AbstractButton {
 	}
 
 	@Override
-	public void onPress() {
+	public void onPress(InputWithModifiers input) {
 		entry.set(!entry.get());
 		entry.save();
 		updateText();

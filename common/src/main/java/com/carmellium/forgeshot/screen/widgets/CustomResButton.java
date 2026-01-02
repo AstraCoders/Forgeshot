@@ -3,6 +3,7 @@ package com.carmellium.forgeshot.screen.widgets;
 import com.carmellium.forgeshot.CommonResolutions;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.input.InputWithModifiers;
 import net.minecraft.network.chat.Component;
 
 import java.util.function.Function;
@@ -26,7 +27,7 @@ public class CustomResButton extends AbstractButton {
 	}
 
 	@Override
-	public void onPress() {
+	public void onPress(InputWithModifiers inputWithModifiers) {
 		int index = res.ordinal();
 		if (index == CommonResolutions.values().length - 1) {
 			index = 0;

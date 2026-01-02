@@ -18,9 +18,9 @@ public class ForgeShotClient {
 	private CaptureTask task;
 
 	private static final KeyMapping SCREENSHOT_KEY = new KeyMapping(
-			"key.forgeshot.screenshot", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F4, "key.categories.misc");
+			"key.forgeshot.screenshot", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F4, KeyMapping.Category.MISC);
 	private static final KeyMapping SCREENSHOT_GUI_KEY = new KeyMapping(
-			"key.forgeshot.screenshot_gui", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F6, "key.categories.misc");
+			"key.forgeshot.screenshot_gui", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F6, KeyMapping.Category.MISC);
 
 
 	public void onRegisterBinding(Consumer<KeyMapping> event) {

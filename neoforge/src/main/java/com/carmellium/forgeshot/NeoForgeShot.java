@@ -16,7 +16,7 @@ public class NeoForgeShot {
 	public NeoForgeShot(ModContainer container, IEventBus eventBus) {
 		container.registerConfig(ModConfig.Type.CLIENT, Config.GENERAL_SPEC);
 		// just for sanity
-		if (FMLLoader.getDist().isClient()) {
+		if (FMLLoader.getCurrent().getDist().isClient()) {
 			ForgeShot.init();
 			NeoForgeShotEvents.init(eventBus);
 		}
