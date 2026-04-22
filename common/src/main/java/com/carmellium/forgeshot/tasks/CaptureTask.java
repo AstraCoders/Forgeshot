@@ -5,9 +5,9 @@ import com.carmellium.forgeshot.config.SaveFormats;
 import com.carmellium.forgeshot.framebuffer.NativeWriter;
 import com.carmellium.forgeshot.platform.Services;
 import com.mojang.blaze3d.pipeline.RenderTarget;
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
+import net.minecraft.util.Util;
 
 import java.nio.file.Path;
 

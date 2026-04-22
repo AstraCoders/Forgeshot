@@ -9,14 +9,14 @@ import com.carmellium.forgeshot.screen.widgets.CustomResButton;
 import com.carmellium.forgeshot.screen.widgets.EnumConfigValueButton;
 import com.carmellium.forgeshot.screen.widgets.ResolutionSlider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 /*
  * @author Lucasmellof, Lucas de Mello Freitas created on 09/09/2023
  */
 public class SettingsScreen extends SettingsScreenBase {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/gui/generic_4.png");
+    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "textures/gui/generic_4.png");
 
     public SettingsScreen() {
         super(Component.translatable("gui.forgeshot.settings.title"), TEXTURE, 248, 180);
