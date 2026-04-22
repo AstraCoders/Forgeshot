@@ -41,7 +41,7 @@ public class NativeWriter {
         Minecraft.getInstance().execute(() -> Minecraft.getInstance()
                 .gui
                 .getChat()
-                .addMessage(Component.translatable("screenshot.success", text)));
+                .addClientSystemMessage(Component.translatable("screenshot.success", text)));
     }
 
     private void saveImg(FileChannel channel) throws IOException {

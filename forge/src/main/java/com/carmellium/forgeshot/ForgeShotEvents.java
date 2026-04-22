@@ -17,8 +17,7 @@ public class ForgeShotEvents {
 	}
 
 	public static void init(FMLJavaModLoadingContext ctx) {
-		var modBus = ctx.getModBusGroup();
-		RegisterKeyMappingsEvent.getBus(modBus).addListener(ForgeShotEvents::onRegisterKeyBinding);
+		RegisterKeyMappingsEvent.BUS.addListener(ForgeShotEvents::onRegisterKeyBinding);
 		TickEvent.ClientTickEvent.Pre.BUS.addListener(ForgeShotEvents::onTick);
 	}
 }

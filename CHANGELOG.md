@@ -1,3 +1,3 @@
 ## Changelog
 
-- small improvements
+- support 1.21.11

@@ -40,7 +40,7 @@ public class Mine {
 		accessor.setFramebufferHeight(height);
 		CLIENT.getMainRenderTarget().resize(width, height);
 
-		CLIENT.resizeDisplay();
+		CLIENT.resizeGui();
 	}
 
 	public static Path getScreenshotPath() {

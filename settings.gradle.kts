@@ -5,20 +5,19 @@ pluginManagement {
         exclusiveContent {
             forRepository {
                 maven {
-                    name = 'Fabric'
-                    url = uri('https://maven.fabricmc.net')
+                    name = "Fabric"
+                    url = uri("https://maven.fabricmc.net")
                 }
             }
             filter {
-                includeGroup('net.fabricmc')
-                includeGroup('fabric-loom')
+                includeGroupAndSubgroups("net.fabricmc")
             }
         }
         exclusiveContent {
             forRepository {
                 maven {
-                    name = 'Sponge'
-                    url = uri('https://repo.spongepowered.org/repository/maven-public')
+                    name = "Sponge"
+                    url = uri("https://repo.spongepowered.org/repository/maven-public")
                 }
             }
             filter {
@@ -28,23 +27,23 @@ pluginManagement {
         exclusiveContent {
             forRepository {
                 maven {
-                    name = 'Forge'
-                    url = uri('https://maven.minecraftforge.net')
+                    name = "Forge"
+                    url = uri("https://maven.minecraftforge.net")
                 }
             }
             filter {
-                includeGroupAndSubgroups('net.minecraftforge')
+                includeGroupAndSubgroups("net.minecraftforge")
             }
         }
     }
 }
 
 plugins {
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
 // This should match the folder name of the project, or else IDEA may complain (see https://youtrack.jetbrains.com/issue/IDEA-317606)
-rootProject.name = 'forgeshot'
-include('common')
-include('neoforge')
-include('forge')
+rootProject.name = "forgeshot"
+include("common")
+include("neoforge")
+include("forge")

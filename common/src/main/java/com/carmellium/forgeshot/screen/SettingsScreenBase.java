@@ -1,6 +1,6 @@
 package com.carmellium.forgeshot.screen;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -25,19 +25,20 @@ public class SettingsScreenBase extends ScreenBase {
 	}
 
 	@Override
-	public void renderBackground(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-		super.renderBackground(graphics, mouseX, mouseY, partialTick);
-
+	public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+		super.extractBackground(graphics, mouseX, mouseY, a);
 		graphics.blit(RenderPipelines.GUI_TEXTURED, texture, guiLeft, guiTop, 0, 0, xSize, ySize, 256, 256);
-
 	}
 
 	@Override
-	public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-		super.render(graphics, mouseX, mouseY, partialTicks);
+	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+		super.extractRenderState(graphics, mouseX, mouseY, a);
+		extract(graphics, mouseX, mouseY, a);
+	}
 
+	public void extract(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
 		int titleWidth = font.width(getTitle());
-		graphics.drawString(font, getTitle().getVisualOrderText(), guiLeft + (xSize - titleWidth) / 2, guiTop + 7, CommonColors.WHITE);
+		graphics.text(font, getTitle().getVisualOrderText(), guiLeft + (xSize - titleWidth) / 2, guiTop + 7, CommonColors.WHITE);
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package com.carmellium.forgeshot.screen.widgets;
 
 import com.carmellium.forgeshot.config.ConfigEntry;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.input.InputWithModifiers;
@@ -36,9 +36,9 @@ public class ConfigValueButton extends AbstractButton {
 	}
 
 	@Override
-	protected void renderContents(GuiGraphics guiGraphics, int i, int i1, float v) {
-		renderDefaultSprite(guiGraphics);
-		renderDefaultLabel(guiGraphics.textRendererForWidget(this, GuiGraphics.HoveredTextEffects.NONE));
+	protected void extractContents(GuiGraphicsExtractor guiGraphics, int i, int i1, float v) {
+		extractDefaultSprite(guiGraphics);
+		extractDefaultLabel(guiGraphics.textRendererForWidget(this, GuiGraphicsExtractor.HoveredTextEffects.NONE));
 	}
 
 
