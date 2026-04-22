@@ -2,6 +2,8 @@ package com.carmellium.forgeshot.screen.widgets;
 
 import com.carmellium.forgeshot.config.ConfigEntry;
 import net.minecraft.client.gui.components.AbstractSliderButton;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 
 import java.util.function.Function;
@@ -15,6 +17,7 @@ public class IntegerConfigValueSlider extends AbstractSliderButton {
 	protected final int min;
 	protected final int max;
 	private final Function<Integer, Component> text;
+	private boolean changed;
 
 	public IntegerConfigValueSlider(int x, int y, int width, int height, ConfigEntry<Integer> entry, int min, int max, Function<Integer, Component> text) {
 		super(x, y, width, height, Component.empty(), getPercentage(min, max, entry.get()));
@@ -38,8 +41,32 @@ public class IntegerConfigValueSlider extends AbstractSliderButton {
 	@Override
 	protected void applyValue() {
 		int value1 = getValue(min, max, value);
-		entry.set(value1);
-		entry.save();
+		if (!entry.get().equals(value1)) {
+			entry.set(value1);
+			changed = true;
+		}
+	}
+
+	@Override
+	public void onRelease(MouseButtonEvent event) {
+		super.onRelease(event);
+		saveIfChanged();
+	}
+
+	@Override
+	public boolean keyPressed(KeyEvent event) {
+		boolean handled = super.keyPressed(event);
+		if (handled) {
+			saveIfChanged();
+		}
+		return handled;
+	}
+
+	private void saveIfChanged() {
+		if (changed) {
+			entry.save();
+			changed = false;
+		}
 	}
 
 	public static double getPercentage(int min, int max, int value) {

@@ -9,6 +9,12 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
 
 public class ForgePlatformHelper implements IPlatformHelper {
+	private final ConfigEntry<Boolean> hideHud = asConfigEntry(Config.HIDE_HUD);
+	private final ConfigEntry<Boolean> scaleHud = asConfigEntry(Config.SCALE_HUD);
+	private final ConfigEntry<Integer> width = asConfigEntry(Config.WIDTH);
+	private final ConfigEntry<Integer> height = asConfigEntry(Config.HEIGHT);
+	private final ConfigEntry<Integer> delay = asConfigEntry(Config.DELAY);
+	private final ConfigEntry<SaveFormats> saveFormat = asConfigEntry(Config.SAVE_FORMAT);
 
 	@Override
 	public String getPlatformName() {
@@ -24,7 +30,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
 	public boolean isDevelopmentEnvironment() {
 		return !FMLLoader.isProduction();
 	}
-	public static <T> ConfigEntry<T> AsConfigEntry(ForgeConfigSpec.ConfigValue<T> cfg) {
+	private static <T> ConfigEntry<T> asConfigEntry(ForgeConfigSpec.ConfigValue<T> cfg) {
 		return new ConfigEntry<>() {
 			@Override
 			public T get() {
@@ -45,31 +51,31 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
 	@Override
 	public ConfigEntry<Boolean> shouldHideHud() {
-		return AsConfigEntry(Config.HIDE_HUD);
+		return hideHud;
 	}
 
 	@Override
 	public ConfigEntry<Boolean> shouldScaleHud() {
-		return AsConfigEntry(Config.SCALE_HUD);
+		return scaleHud;
 	}
 
 	@Override
 	public ConfigEntry<Integer> getWidth() {
-		return AsConfigEntry(Config.WIDTH);
+		return width;
 	}
 
 	@Override
 	public ConfigEntry<Integer> getHeight() {
-		return AsConfigEntry(Config.HEIGHT);
+		return height;
 	}
 
 	@Override
 	public ConfigEntry<Integer> getDelay() {
-		return AsConfigEntry(Config.DELAY);
+		return delay;
 	}
 
 	@Override
 	public ConfigEntry<SaveFormats> getSaveFormat() {
-		return AsConfigEntry(Config.SAVE_FORMAT);
+		return saveFormat;
 	}
 }

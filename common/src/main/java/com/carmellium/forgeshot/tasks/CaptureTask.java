@@ -1,7 +1,8 @@
 package com.carmellium.forgeshot.tasks;
 
 import com.carmellium.forgeshot.Mine;
-import com.carmellium.forgeshot.framebuffer.NativeWritter;
+import com.carmellium.forgeshot.config.SaveFormats;
+import com.carmellium.forgeshot.framebuffer.NativeWriter;
 import com.carmellium.forgeshot.platform.Services;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import net.minecraft.Util;
@@ -15,6 +16,12 @@ import java.nio.file.Path;
  */
 public class CaptureTask {
     private final Path file;
+    private final int targetWidth;
+    private final int targetHeight;
+    private final int delay;
+    private final boolean targetHideHud;
+    private final boolean scaleHud;
+    private final SaveFormats saveFormat;
 
     private int frame;
 
@@ -22,13 +29,20 @@ public class CaptureTask {
     private int displayHeight;
 
     private boolean hideHud;
+    private boolean resized;
 
-    public CaptureTask(Path file) {
-        this.file = file;
+    public CaptureTask() {
+        this.targetWidth = Services.PLATFORM.getWidth().get();
+        this.targetHeight = Services.PLATFORM.getHeight().get();
+        this.delay = Services.PLATFORM.getDelay().get();
+        this.targetHideHud = Services.PLATFORM.shouldHideHud().get();
+        this.scaleHud = Services.PLATFORM.shouldScaleHud().get();
+        this.saveFormat = Services.PLATFORM.getSaveFormat().get();
+        this.file = Mine.getScreenshotPath(saveFormat);
     }
 
     public float getScale() {
-        if (Minecraft.getInstance().options.guiScale().get() == 0) {
+        if (!scaleHud || Minecraft.getInstance().options.guiScale().get() == 0) {
             return 1.0F;
         }
         return Math.min((float) Mine.getWidth() / displayWidth, (float) Mine.getHeight() / displayHeight);
@@ -40,29 +54,30 @@ public class CaptureTask {
             displayHeight = Mine.getHeight();
             hideHud = Minecraft.getInstance().options.hideGui;
 
-            int width = Services.PLATFORM.getWidth().get();
-            int height = Services.PLATFORM.getHeight().get();
-
-            Mine.resize(width, height);
-            Mine.hideHud(Services.PLATFORM.shouldHideHud().get());
-        } else if (frame >= Services.PLATFORM.getDelay().get()) {
+            resized = targetWidth != displayWidth || targetHeight != displayHeight;
+            if (resized) {
+                Mine.resize(targetWidth, targetHeight);
+            }
+            Mine.hideHud(targetHideHud);
+        } else if (frame >= delay) {
             try {
                 RenderTarget target = Minecraft.getInstance().getMainRenderTarget();
                 Screenshot.takeScreenshot(target, it -> Util.ioPool().execute(() -> {
-					var writter = new NativeWritter(it, file);
-
-					try {
-						writter.save();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}));
+                    try (it) {
+                        var writer = new NativeWriter(it, file, saveFormat);
+                        writer.save();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }));
             } finally {
-                Mine.resize(displayWidth, displayHeight);
+                if (resized) {
+                    Mine.resize(displayWidth, displayHeight);
+                }
                 Mine.hideHud(hideHud);
             }
         }
         frame++;
-        return frame > Services.PLATFORM.getDelay().get();
+        return frame > delay;
     }
 }

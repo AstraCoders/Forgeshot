@@ -39,7 +39,7 @@ public class ForgeShotClient {
 
 	public void capture() {
 		if (task == null) {
-			task = new CaptureTask(Mine.getScreenshotPath());
+			task = new CaptureTask();
 		}
 	}
 

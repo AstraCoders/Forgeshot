@@ -1,7 +1,7 @@
 package com.carmellium.forgeshot.framebuffer;
 
 import com.carmellium.forgeshot.callbacks.WriteCallback;
-import com.carmellium.forgeshot.platform.Services;
+import com.carmellium.forgeshot.config.SaveFormats;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -18,17 +18,19 @@ import java.nio.file.StandardOpenOption;
 /*
  * @author Lucasmellof, Lucas de Mello Freitas created on 09/09/2023
  */
-public class NativeWritter {
+public class NativeWriter {
     private final NativeImage capturer;
     private final Path path;
+    private final SaveFormats saveFormat;
 
-    public NativeWritter(NativeImage capturer, Path path) {
+    public NativeWriter(NativeImage capturer, Path path, SaveFormats saveFormat) {
         this.capturer = capturer;
         this.path = path;
+        this.saveFormat = saveFormat;
     }
 
     public void save() throws IOException {
-        try (var channel = FileChannel.open(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
+        try (var channel = FileChannel.open(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
             saveImg(channel);
         }
 
@@ -45,27 +47,30 @@ public class NativeWritter {
     private void saveImg(FileChannel channel) throws IOException {
 
         try (WriteCallback callback = new WriteCallback(channel)) {
-            switch (Services.PLATFORM.getSaveFormat().get()) {
+            boolean success = switch (saveFormat) {
                 case PNG -> STBImageWrite.nstbi_write_png_to_func(
-                        callback.address(),
-                        0,
-                        this.capturer.getWidth(),
-                        this.capturer.getHeight(),
-                       this.capturer.format().components(),
-                        capturer.getPointer(),
-                        0);
-                case JPG -> STBImageWrite.nstbi_write_png_to_func(
                         callback.address(),
                         0,
                         this.capturer.getWidth(),
                         this.capturer.getHeight(),
                         this.capturer.format().components(),
                         capturer.getPointer(),
-                        90);
-            }
+                        this.capturer.getWidth() * this.capturer.format().components()) != 0;
+                case JPG -> STBImageWrite.nstbi_write_jpg_to_func(
+                        callback.address(),
+                        0,
+                        this.capturer.getWidth(),
+                        this.capturer.getHeight(),
+                        this.capturer.format().components(),
+                        capturer.getPointer(),
+                        90) != 0;
+            };
 
             if (callback.exception() != null) {
                 throw callback.exception();
+            }
+            if (!success) {
+                throw new IOException("Failed to write screenshot as " + saveFormat);
             }
         }
     }

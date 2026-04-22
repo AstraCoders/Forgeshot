@@ -1,6 +1,7 @@
 package com.carmellium.forgeshot;
 
 import com.carmellium.forgeshot.mixin.AccessorWindow;
+import com.carmellium.forgeshot.config.SaveFormats;
 import com.carmellium.forgeshot.platform.Services;
 import net.minecraft.client.Minecraft;
 
@@ -43,6 +44,10 @@ public class Mine {
 	}
 
 	public static Path getScreenshotPath() {
+		return getScreenshotPath(Services.PLATFORM.getSaveFormat().get());
+	}
+
+	public static Path getScreenshotPath(SaveFormats saveFormat) {
 		var dir = CLIENT.gameDirectory.toPath().resolve("screenshots");
 
 		try {
@@ -52,12 +57,14 @@ public class Mine {
 		}
 
 		Path path;
-		// loop though suffixes while the file exists
-		int i = 1;
+		// loop through suffixes while the file exists
+		int suffix = 0;
 
 		do {
+			String suffixText = suffix == 0 ? "" : "_" + suffix;
 			path = dir.resolve(
-					"huge_" + DATE_FORMAT.format(new Date()) + (i++ == 1 ? "" : "_" + i) + "." + Services.PLATFORM.getSaveFormat().get().name().toLowerCase());
+					"huge_" + DATE_FORMAT.format(new Date()) + suffixText + "." + saveFormat.name().toLowerCase());
+			suffix++;
 		} while (Files.exists(path));
 
 		return path;

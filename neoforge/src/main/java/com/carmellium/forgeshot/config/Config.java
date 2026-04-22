@@ -32,8 +32,8 @@ public class Config {
 		HIDE_HUD = builder.comment("Hide HUD when taking screenshot").define("hideHud", true);
 		SCALE_HUD = builder.comment("Scale HUD when taking screenshot").define("scaleHud", true);
 
-		WIDTH = builder.comment("Width of the screenshot").defineInRange("width", 3840, 0, Integer.MAX_VALUE);
-		HEIGHT = builder.comment("Height of the screenshot").defineInRange("height", 2160, 0, Integer.MAX_VALUE);
+		WIDTH = builder.comment("Width of the screenshot").defineInRange("width", 3840, 1, 15360);
+		HEIGHT = builder.comment("Height of the screenshot").defineInRange("height", 2160, 1, 8640);
 
 		DELAY = builder.comment("Delay before taking screenshot").defineInRange("delay", 3, 0, 10);
 
