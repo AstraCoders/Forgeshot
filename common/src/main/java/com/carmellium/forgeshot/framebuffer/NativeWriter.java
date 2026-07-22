@@ -40,6 +40,7 @@ public class NativeWriter {
                 .withStyle(style -> style.withClickEvent(new ClickEvent.OpenFile(file.getAbsolutePath())));
         Minecraft.getInstance().execute(() -> Minecraft.getInstance()
                 .gui
+                .hud
                 .getChat()
                 .addClientSystemMessage(Component.translatable("screenshot.success", text)));
     }

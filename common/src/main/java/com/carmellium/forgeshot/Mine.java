@@ -28,7 +28,9 @@ public class Mine {
 	}
 
 	public static void hideHud(boolean hideHud) {
-		CLIENT.options.hideGui = hideHud;
+		if (CLIENT.gui.hud.isHidden() != hideHud) {
+			CLIENT.gui.hud.toggle();
+		}
 	}
 
 	public static void resize(int width, int height) {
@@ -38,7 +40,7 @@ public class Mine {
 		accessor.setHeight(height);
 		accessor.setFramebufferWidth(width);
 		accessor.setFramebufferHeight(height);
-		CLIENT.getMainRenderTarget().resize(width, height);
+		CLIENT.gameRenderer.mainRenderTarget().resize(width, height);
 
 		CLIENT.resizeGui();
 	}

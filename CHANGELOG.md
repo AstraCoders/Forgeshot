@@ -1,3 +1,3 @@
 ## Changelog
 
-- support 26.1.2
+- support 26.2

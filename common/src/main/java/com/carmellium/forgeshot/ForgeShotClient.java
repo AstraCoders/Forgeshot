@@ -33,7 +33,7 @@ public class ForgeShotClient {
 			capture();
 		}
 		if (SCREENSHOT_GUI_KEY.consumeClick()) {
-			Minecraft.getInstance().setScreen(new SettingsScreen());
+			Minecraft.getInstance().gui.setScreen(new SettingsScreen());
 		}
 	}
 
