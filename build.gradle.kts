@@ -4,7 +4,7 @@ plugins {
     // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
     id("net.neoforged.moddev") version "2.0.141" apply false
 
-    id("net.darkhax.curseforgegradle") version "1.1.25" apply false
+    id("net.darkhax.curseforgegradle") version "1.+" apply false
     id("com.modrinth.minotaur") version "2.8.7" apply false
     id("git-changelog")
 }

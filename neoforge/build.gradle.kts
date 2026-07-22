@@ -89,25 +89,25 @@ sourceSets.configureEach {
 tasks.register<net.darkhax.curseforgegradle.TaskPublishCurseForge>("publishCurseForge") {
     dependsOn(tasks.jar)
     group = "publishing"
-    apiToken = extra["curseforgeKey"].toString()
+    apiToken = rootProject.extra["curseforgeKey"].toString()
 
-    val mainFile = upload(property("curseforge_project_id").toString(), tasks.jar.get())
+    val mainFile = upload(rootProject.property("curseforge_project_id").toString(), tasks.jar.get())
     mainFile.releaseType = "release"
     mainFile.changelogType = "text"
     mainFile.changelog = rootProject.extra["mod_changelog"].toString()
-    // mainFile.addJavaVersion("Java ${property("java_version")}")
-    mainFile.addGameVersion(property("minecraft_version").toString())
+    // mainFile.addJavaVersion("Java ${rootProject.property("java_version")}")
+    mainFile.addGameVersion(rootProject.property("minecraft_version").toString())
     mainFile.addModLoader("NeoForge")
 }
 
 modrinth {
-    token.set(extra["modrinthKey"].toString())
-    projectId.set(property("modrinth_project_id").toString())
-    versionNumber.set("${property("minecraft_version")}-${project.version}")
-    versionName.set("${project.version} for NeoForge ${property("minecraft_version")}")
+    token.set(rootProject.extra["modrinthKey"].toString())
+    projectId.set(project.property("modrinth_project_id").toString())
+    versionNumber.set("${project.property("minecraft_version")}-${project.version}")
+    versionName.set("${project.version} for NeoForge ${project.property("minecraft_version")}")
     versionType.set("release")
     uploadFile.set(tasks.jar)
-    gameVersions.set(listOf(property("minecraft_version").toString()))
+    gameVersions.set(listOf(project.property("minecraft_version").toString()))
     changelog.set(provider { rootProject.extra["mod_changelog"].toString() })
     loaders.set(listOf("neoforge"))
 }
