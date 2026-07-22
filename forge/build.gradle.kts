@@ -26,8 +26,6 @@ sourceSets.named("main") {
 }
 
 minecraft {
-    mixinConfigs.forEach { }
-
     // Forge still uses SRG names during compile time, so we cannot use the common AT's
     val at = file("src/main/resources/META-INF/accesstransformer.cfg")
 //    if (at.exists()) {
@@ -107,7 +105,7 @@ tasks.named<Jar>("jar") {
     manifest {
         attributes(
             mapOf(
-                "MixinConfigs" to "${project.property("mod_id")}.mixins.json,${project.property("mod_id")}-forge.mixins.json"
+                "MixinConfigs" to mixinConfigs.joinToString(","),
             )
         )
     }
