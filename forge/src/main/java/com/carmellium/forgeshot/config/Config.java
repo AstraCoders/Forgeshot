@@ -18,6 +18,8 @@ public class Config {
 
 	public static ForgeConfigSpec.EnumValue<SaveFormats> SAVE_FORMAT;
 
+	public static ForgeConfigSpec.BooleanValue REPLACE_ORIGINAL_SCREENSHOT_MESSAGE;
+
 
 	static {
 		ForgeConfigSpec.Builder configBuilder = new ForgeConfigSpec.Builder();
@@ -37,6 +39,8 @@ public class Config {
 		DELAY = builder.comment("Delay before taking screenshot").defineInRange("delay", 3, 0, 10);
 
 		SAVE_FORMAT = builder.comment("Save format of the screenshot").defineEnum("saveFormat", SaveFormats.PNG);
+
+		REPLACE_ORIGINAL_SCREENSHOT_MESSAGE = builder.comment("Replace the original screenshot message").define("replaceOriginalScreenshotMessage", true);
 
 		builder.pop();
 	}
