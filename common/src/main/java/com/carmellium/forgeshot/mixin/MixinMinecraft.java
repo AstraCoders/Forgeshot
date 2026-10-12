@@ -19,12 +19,12 @@ public class MixinMinecraft {
                     @At(
                             value = "INVOKE",
                             target =
-                                    "Lnet/minecraft/client/renderer/GameRenderer;render(Lnet/minecraft/client/DeltaTracker;Z)V"))
+                                    "Lnet/minecraft/client/renderer/GameRenderer;render()V"))
     public void onPreRender(boolean advanceGameTime, CallbackInfo ci) {
 		ForgeShotClient.INSTANCE.onRender();
 	}
 
-	@Inject(method = "renderFrame", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GameRenderer;render(Lnet/minecraft/client/DeltaTracker;Z)V", shift = At.Shift.AFTER))
+	@Inject(method = "renderFrame", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GameRenderer;render()V", shift = At.Shift.AFTER))
 	public void onPostRender(boolean advanceGameTime, CallbackInfo ci) {
 		ForgeShotClient.INSTANCE.onRender();
 	}

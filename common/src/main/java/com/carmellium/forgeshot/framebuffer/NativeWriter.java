@@ -1,6 +1,7 @@
 package com.carmellium.forgeshot.framebuffer;
 
 import com.carmellium.forgeshot.callbacks.WriteCallback;
+import com.carmellium.forgeshot.clipboard.ImageClipboard;
 import com.carmellium.forgeshot.config.SaveFormats;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.ChatFormatting;
@@ -42,7 +43,7 @@ public class NativeWriter {
                 .gui
                 .hud
                 .getChat()
-                .addClientSystemMessage(Component.translatable("screenshot.success", text)));
+                .addClientSystemMessage(ImageClipboard.appendMessage(Component.translatable("screenshot.success", text), file)));
     }
 
     private void saveImg(FileChannel channel) throws IOException {

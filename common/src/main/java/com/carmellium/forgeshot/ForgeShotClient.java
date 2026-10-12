@@ -5,7 +5,6 @@ import com.carmellium.forgeshot.tasks.CaptureTask;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.function.Consumer;
 
@@ -18,9 +17,9 @@ public class ForgeShotClient {
 	private CaptureTask task;
 
 	private static final KeyMapping SCREENSHOT_KEY = new KeyMapping(
-			"key.forgeshot.screenshot", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F4, KeyMapping.Category.MISC);
+			"key.forgeshot.screenshot", InputConstants.Type.KEYBOARD, InputConstants.KEY_F4, KeyMapping.Category.MISC);
 	private static final KeyMapping SCREENSHOT_GUI_KEY = new KeyMapping(
-			"key.forgeshot.screenshot_gui", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F6, KeyMapping.Category.MISC);
+			"key.forgeshot.screenshot_gui", InputConstants.Type.KEYBOARD, InputConstants.KEY_F6, KeyMapping.Category.MISC);
 
 
 	public void onRegisterBinding(Consumer<KeyMapping> event) {

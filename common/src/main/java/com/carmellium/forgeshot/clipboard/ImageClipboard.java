@@ -1,12 +1,19 @@
 package com.carmellium.forgeshot.clipboard;
 
+import com.carmellium.forgeshot.Constants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.TimeUnit;
@@ -104,5 +111,13 @@ public final class ImageClipboard {
             process.destroyForcibly();
             throw e;
         }
+    }
+
+    public static MutableComponent appendMessage(MutableComponent original, File file) {
+        return original.append(" ")
+                       .append(Component.translatable("forgeshot.screenshot.copy")
+                                       .withStyle(it -> it.withClickEvent(new ClickEvent.Custom(
+                                               Constants.COPY_SCREENSHOT_IMAGE_CLICK_EVENT_ID,
+                                               Optional.of(StringTag.valueOf(file.getAbsolutePath()))))));
     }
 }
