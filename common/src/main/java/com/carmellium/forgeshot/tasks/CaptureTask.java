@@ -52,7 +52,11 @@ public class CaptureTask {
         if (frame == 0) {
             displayWidth = Mine.getWidth();
             displayHeight = Mine.getHeight();
-            hideHud = Minecraft.getInstance().gui.hud.isHidden();
+			//? if >=26.2 {
+            /*hideHud = Minecraft.getInstance().gui.hud.isHidden();
+			*///?} else {
+			hideHud = Minecraft.getInstance().options.hideGui;
+			//?}
 
             resized = targetWidth != displayWidth || targetHeight != displayHeight;
             if (resized) {
@@ -61,7 +65,11 @@ public class CaptureTask {
             Mine.hideHud(targetHideHud);
         } else if (frame >= delay) {
             try {
-                RenderTarget target = Minecraft.getInstance().gameRenderer.mainRenderTarget();
+				//? if >=26.2 {
+                /*RenderTarget target = Minecraft.getInstance().gameRenderer.mainRenderTarget();
+				*///?} else {
+				RenderTarget target = Minecraft.getInstance().getMainRenderTarget();
+				//?}
                 Screenshot.takeScreenshot(target, it -> Util.ioPool().execute(() -> {
                     try (it) {
                         var writer = new NativeWriter(it, file, saveFormat);

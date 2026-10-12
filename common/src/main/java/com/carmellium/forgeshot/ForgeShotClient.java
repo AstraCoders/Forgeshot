@@ -5,7 +5,9 @@ import com.carmellium.forgeshot.tasks.CaptureTask;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+//? if <26.3 {
 import org.lwjgl.glfw.GLFW;
+//?}
 
 import java.util.function.Consumer;
 
@@ -17,10 +19,17 @@ public class ForgeShotClient {
 	public static final ForgeShotClient INSTANCE = new ForgeShotClient();
 	private CaptureTask task;
 
+	//? if >=26.3 {
+	/*private static final KeyMapping SCREENSHOT_KEY = new KeyMapping(
+			"key.forgeshot.screenshot", InputConstants.Type.KEYBOARD, InputConstants.KEY_F4, KeyMapping.Category.MISC);
+	private static final KeyMapping SCREENSHOT_GUI_KEY = new KeyMapping(
+			"key.forgeshot.screenshot_gui", InputConstants.Type.KEYBOARD, InputConstants.KEY_F6, KeyMapping.Category.MISC);
+	*///?} else {
 	private static final KeyMapping SCREENSHOT_KEY = new KeyMapping(
 			"key.forgeshot.screenshot", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F4, KeyMapping.Category.MISC);
 	private static final KeyMapping SCREENSHOT_GUI_KEY = new KeyMapping(
 			"key.forgeshot.screenshot_gui", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F6, KeyMapping.Category.MISC);
+	//?}
 
 
 	public void onRegisterBinding(Consumer<KeyMapping> event) {
@@ -33,7 +42,11 @@ public class ForgeShotClient {
 			capture();
 		}
 		if (SCREENSHOT_GUI_KEY.consumeClick()) {
-			Minecraft.getInstance().gui.setScreen(new SettingsScreen());
+			//? if >=26.2 {
+			/*Minecraft.getInstance().gui.setScreen(new SettingsScreen());
+			*///?} else {
+			Minecraft.getInstance().setScreen(new SettingsScreen());
+			//?}
 		}
 	}
 

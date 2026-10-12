@@ -22,7 +22,7 @@ val mixinConfigs = listOf(
 
 // Include generated resources
 sourceSets.named("main") {
-    resources.srcDir(project(":common").file("src/generated/resources/").absolutePath)
+    resources.srcDir(rootProject.file("common/src/generated/resources/"))
 }
 
 minecraft {
@@ -98,7 +98,7 @@ sourceSets.configureEach {
 dependencies {
     implementation(minecraft.dependency("net.minecraftforge:forge:${property("minecraft_version")}-${property("forge_version")}"))
     annotationProcessor("org.spongepowered:mixin:0.8.7:processor")
-    annotationProcessor("net.minecraftforge:eventbus-validator:7.0.1")
+    annotationProcessor("net.minecraftforge:eventbus-validator:7.0.6")
 }
 
 tasks.named<Jar>("jar") {

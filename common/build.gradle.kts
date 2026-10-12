@@ -2,7 +2,17 @@ import org.gradle.api.attributes.Attribute
 
 plugins {
     id("multiloader-common")
-    id("net.neoforged.moddev")
+    id("net.neoforged.moddev") apply false
+}
+
+// ModDev's IntelliJ integration registers root extensions that NeoForge owns during sync.
+// shortcut: JVM-wide flag assumes sequential project configuration; remove when ModDev supports project-scoped IDE integration.
+val ideaSync = System.getProperty("idea.sync.active")
+try {
+    if (ideaSync == "true") System.setProperty("idea.sync.active", "false")
+    apply(plugin = "net.neoforged.moddev")
+} finally {
+    if (ideaSync != null) System.setProperty("idea.sync.active", ideaSync)
 }
 
 val neo_form_version: String by project
@@ -19,7 +29,7 @@ val neoforge_loader_version_range: String by project
 val forge_version: String by project
 val forge_loader_version_range: String by project
 
-neoForge {
+extensions.configure<net.neoforged.moddevgradle.dsl.NeoForgeExtension> {
     neoFormVersion = neo_form_version
     // Automatically enable AccessTransformers if the file exists
     val at = file("src/main/resources/META-INF/accesstransformer.cfg")
@@ -33,21 +43,6 @@ dependencies {
     // fabric and neoforge both bundle mixinextras, so it is safe to use it in common
     add("compileOnly", "io.github.llamalad7:mixinextras-common:0.5.3")
     add("annotationProcessor", "io.github.llamalad7:mixinextras-common:0.5.3")
-}
-
-val commonJava by configurations.creating {
-    isCanBeResolved = false
-    isCanBeConsumed = true
-}
-
-val commonResources by configurations.creating {
-    isCanBeResolved = false
-    isCanBeConsumed = true
-}
-
-artifacts {
-    add(commonJava.name, sourceSets.named("main").get().java.sourceDirectories.singleFile)
-    add(commonResources.name, sourceSets.named("main").get().resources.sourceDirectories.singleFile)
 }
 
 // Implement mcgradleconventions loader attribute

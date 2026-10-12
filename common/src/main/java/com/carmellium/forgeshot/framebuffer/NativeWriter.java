@@ -38,11 +38,18 @@ public class NativeWriter {
         Component text = Component.literal(file.getName())
                 .withStyle(ChatFormatting.UNDERLINE)
                 .withStyle(style -> style.withClickEvent(new ClickEvent.OpenFile(file.getAbsolutePath())));
-        Minecraft.getInstance().execute(() -> Minecraft.getInstance()
-                .gui
-                .hud
-                .getChat()
-                .addClientSystemMessage(Component.translatable("screenshot.success", text)));
+        Minecraft.getInstance().execute(() -> {
+			//? if >=26.2 {
+			/*Minecraft.getInstance().gui.hud.getChat()
+					.addClientSystemMessage(Component.translatable("screenshot.success", text));
+			*///?} elif >=26.1 {
+			Minecraft.getInstance().gui.getChat()
+					.addClientSystemMessage(Component.translatable("screenshot.success", text));
+			//?} else {
+			/*Minecraft.getInstance().gui.getChat()
+					.addMessage(Component.translatable("screenshot.success", text));
+			*///?}
+		});
     }
 
     private void saveImg(FileChannel channel) throws IOException {

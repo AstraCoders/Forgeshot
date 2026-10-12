@@ -15,7 +15,7 @@ neoForge {
     version = property("neoforge_version").toString()
 
     // Automatically enable neoforge AccessTransformers if the file exists
-    val at = project(":common").file("src/main/resources/META-INF/accesstransformer.cfg")
+    val at = rootProject.file("common/src/main/resources/META-INF/accesstransformer.cfg")
     if (at.exists()) {
         accessTransformers.from(at.absolutePath)
     }
@@ -28,9 +28,10 @@ neoForge {
         create("client") {
             client()
             gameDirectory.set(project.file("runs/client"))
+            jvmArguments.add("-Dmixin.debug.export=true")
         }
         create("data") {
-            clientData()
+            if (property("minecraft_version").toString() == "1.21") data() else clientData()
             gameDirectory.set(project.file("runs/data"))
             // DataGen can be run by - "./gradlew :neoforge:runData" in Terminal.
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
@@ -96,7 +97,7 @@ tasks.register<net.darkhax.curseforgegradle.TaskPublishCurseForge>("publishCurse
     mainFile.changelogType = "text"
     mainFile.changelog = rootProject.extra["mod_changelog"].toString()
     // mainFile.addJavaVersion("Java ${rootProject.property("java_version")}")
-    mainFile.addGameVersion(rootProject.property("minecraft_version").toString())
+    mainFile.addGameVersion(project.property("minecraft_version").toString())
     mainFile.addModLoader("NeoForge")
 }
 

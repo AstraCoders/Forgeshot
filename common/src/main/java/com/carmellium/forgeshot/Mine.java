@@ -28,9 +28,13 @@ public class Mine {
 	}
 
 	public static void hideHud(boolean hideHud) {
-		if (CLIENT.gui.hud.isHidden() != hideHud) {
+		//? if >=26.2 {
+		/*if (CLIENT.gui.hud.isHidden() != hideHud) {
 			CLIENT.gui.hud.toggle();
 		}
+		*///?} else {
+		CLIENT.options.hideGui = hideHud;
+		//?}
 	}
 
 	public static void resize(int width, int height) {
@@ -40,9 +44,16 @@ public class Mine {
 		accessor.setHeight(height);
 		accessor.setFramebufferWidth(width);
 		accessor.setFramebufferHeight(height);
-		CLIENT.gameRenderer.mainRenderTarget().resize(width, height);
-
+		//? if >=26.2 {
+		/*CLIENT.gameRenderer.mainRenderTarget().resize(width, height);
+		*///?} else {
+		CLIENT.getMainRenderTarget().resize(width, height);
+		//?}
+		//? if >=26.1 {
 		CLIENT.resizeGui();
+		//?} else {
+		/*CLIENT.resizeDisplay();
+		*///?}
 	}
 
 	public static Path getScreenshotPath() {

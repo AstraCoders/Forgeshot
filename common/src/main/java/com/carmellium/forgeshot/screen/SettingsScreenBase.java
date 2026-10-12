@@ -1,6 +1,10 @@
 package com.carmellium.forgeshot.screen;
 
+//? if >=26.1 {
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+//?} else {
+/*import net.minecraft.client.gui.GuiGraphics;
+*///?}
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -24,6 +28,7 @@ public class SettingsScreenBase extends ScreenBase {
 		super.init();
 	}
 
+	//? if >=26.1 {
 	@Override
 	public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
 		super.extractBackground(graphics, mouseX, mouseY, a);
@@ -40,6 +45,20 @@ public class SettingsScreenBase extends ScreenBase {
 		int titleWidth = font.width(getTitle());
 		graphics.text(font, getTitle().getVisualOrderText(), guiLeft + (xSize - titleWidth) / 2, guiTop + 7, CommonColors.WHITE);
 	}
+	//?} else {
+	/*@Override
+	public void renderBackground(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+		super.renderBackground(graphics, mouseX, mouseY, partialTick);
+		graphics.blit(RenderPipelines.GUI_TEXTURED, texture, guiLeft, guiTop, 0, 0, xSize, ySize, 256, 256);
+	}
+
+	@Override
+	public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+		super.render(graphics, mouseX, mouseY, partialTicks);
+		int titleWidth = font.width(getTitle());
+		graphics.drawString(font, getTitle().getVisualOrderText(), guiLeft + (xSize - titleWidth) / 2, guiTop + 7, CommonColors.WHITE);
+	}
+	*///?}
 
 	@Override
 	public boolean mouseClicked(MouseButtonEvent event, boolean isDoubleClick) {

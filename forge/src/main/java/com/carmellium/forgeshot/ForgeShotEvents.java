@@ -17,7 +17,12 @@ public class ForgeShotEvents {
 	}
 
 	public static void init(FMLJavaModLoadingContext ctx) {
+		//? if >=26.1 {
 		RegisterKeyMappingsEvent.BUS.addListener(ForgeShotEvents::onRegisterKeyBinding);
+		//?} else {
+		/*var modBus = ctx.getModBusGroup();
+		RegisterKeyMappingsEvent.getBus(modBus).addListener(ForgeShotEvents::onRegisterKeyBinding);
+		*///?}
 		TickEvent.ClientTickEvent.Pre.BUS.addListener(ForgeShotEvents::onTick);
 	}
 }

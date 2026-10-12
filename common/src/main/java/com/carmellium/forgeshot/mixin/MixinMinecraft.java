@@ -13,23 +13,45 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(value = Minecraft.class, remap = false)
 public class MixinMinecraft {
-    @Inject(
-            method = "renderFrame",
-            at =
-                    @At(
-                            value = "INVOKE",
-                            target =
-                                    "Lnet/minecraft/client/renderer/GameRenderer;render(Lnet/minecraft/client/DeltaTracker;Z)V"))
-    public void onPreRender(boolean advanceGameTime, CallbackInfo ci) {
+	@Inject(
+			//? if <26.1 {
+			/*method = "runTick",
+			*///?} else {
+			method = "renderFrame",
+			//?}
+			at = @At(value = "INVOKE", target =
+					//? if >=26.3 {
+					/*"Lnet/minecraft/client/renderer/GameRenderer;render()V"))
+					*///?} else {
+					"Lnet/minecraft/client/renderer/GameRenderer;render(Lnet/minecraft/client/DeltaTracker;Z)V"))
+					//?}
+	public void onPreRender(boolean advanceGameTime, CallbackInfo ci) {
 		ForgeShotClient.INSTANCE.onRender();
 	}
 
-	@Inject(method = "renderFrame", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GameRenderer;render(Lnet/minecraft/client/DeltaTracker;Z)V", shift = At.Shift.AFTER))
+	@Inject(
+			//? if <26.1 {
+			/*method = "runTick",
+			*///?} else {
+			method = "renderFrame",
+			//?}
+			at = @At(value = "INVOKE", target =
+					//? if >=26.3 {
+					/*"Lnet/minecraft/client/renderer/GameRenderer;render()V", shift = At.Shift.AFTER))
+					*///?} else {
+					"Lnet/minecraft/client/renderer/GameRenderer;render(Lnet/minecraft/client/DeltaTracker;Z)V", shift = At.Shift.AFTER))
+					//?}
 	public void onPostRender(boolean advanceGameTime, CallbackInfo ci) {
 		ForgeShotClient.INSTANCE.onRender();
 	}
 
-	@ModifyArg(method = "resizeGui", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;setGuiScale(I)V"))
+	@ModifyArg(
+			//? if <26.1 {
+			/*method = "resizeDisplay",
+			*///?} else {
+			method = "resizeGui",
+			//?}
+			at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;setGuiScale(I)V"))
 	public int onResizeDisplay(int guiScale) {
 		return (int) (ForgeShotClient.INSTANCE.getScale() * guiScale);
 	}
