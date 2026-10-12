@@ -1,6 +1,7 @@
 package com.carmellium.forgeshot.mixin;
 
 import com.carmellium.forgeshot.Constants;
+import com.carmellium.forgeshot.clipboard.ImageClipboard;
 import com.carmellium.forgeshot.platform.Services;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -30,10 +31,6 @@ public class MixinScreenshot {
     private static MutableComponent forgeshot$takeScreenshot$1(
             MutableComponent original, @Local(argsOnly = true) File file) {
         if (!Services.PLATFORM.replaceOriginalScreenshotMessage().get()) return original;
-        return original.append(" ")
-                .append(Component.translatable("forgeshot.screenshot.copy")
-                        .withStyle(it -> it.withClickEvent(new ClickEvent.Custom(
-                                Constants.COPY_SCREENSHOT_IMAGE_CLICK_EVENT_ID,
-                                Optional.of(StringTag.valueOf(file.getAbsolutePath()))))));
+        return ImageClipboard.appendMessage(original.append(" "), file);
     }
 }
