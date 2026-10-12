@@ -7,10 +7,13 @@
 	"mixins": [],
 	"client": [
 		"AccessorWindow",
-		"MixinMinecraft"
+		"MixinMinecraft",
+		"MixinScreenshot",
+		"MixinChatScreen"
 	],
 	"server": [],
 	"injectors": {
 		"defaultRequire": 1
-	}
+	},
+	"verbose": true
 }

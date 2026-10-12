@@ -18,4 +18,6 @@ public interface ISettings {
 	ConfigEntry<Integer> getDelay();
 
 	ConfigEntry<SaveFormats> getSaveFormat();
+
+	ConfigEntry<Boolean> replaceOriginalScreenshotMessage();
 }
