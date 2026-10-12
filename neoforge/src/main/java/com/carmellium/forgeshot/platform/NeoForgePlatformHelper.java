@@ -16,6 +16,8 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 	private final ConfigEntry<Integer> delay = asConfigEntry(Config.DELAY);
 	private final ConfigEntry<SaveFormats> saveFormat = asConfigEntry(Config.SAVE_FORMAT);
 
+	private final ConfigEntry<Boolean> replaceOriginalScreenshotMessage = asConfigEntry(Config.REPLACE_ORIGINAL_SCREENSHOT_MESSAGE);
+
 	@Override
 	public String getPlatformName() {
 		return "NeoForge";
@@ -78,5 +80,10 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 	@Override
 	public ConfigEntry<SaveFormats> getSaveFormat() {
 		return saveFormat;
+	}
+
+	@Override
+	public ConfigEntry<Boolean> replaceOriginalScreenshotMessage() {
+		return  replaceOriginalScreenshotMessage;
 	}
 }
